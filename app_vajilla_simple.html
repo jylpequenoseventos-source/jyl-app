@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JYL - Pedido de Vajilla</title>
+<style>
+  body { font-family: Arial, sans-serif; background-color: #000; color: #d4af37; margin: 0; padding: 20px; }
+  h1 { text-align: center; }
+  label { display: block; margin-top: 10px; }
+  input, select { width: 100%; padding: 8px; margin-top: 5px; background: #111; color: #fff; border: 1px solid #d4af37; }
+  button { margin-top: 20px; padding: 10px; width: 100%; background: #d4af37; color: #000; border: none; font-weight: bold; cursor: pointer; }
+  #resumen { margin-top: 20px; border-top: 1px solid #d4af37; padding-top: 10px; }
+</style>
+</head>
+<body>
+<h1>JYL - Pedido de Vajilla</h1>
+<form id="pedidoForm">
+  <label>Nombre del Cliente:<input type="text" id="nombre" required></label>
+  <label>Fecha del Evento:<input type="date" id="fecha" required></label>
+  <label>Producto:
+    <select id="producto">
+      <option value="Platos">Platos</option>
+      <option value="Vasos">Vasos</option>
+      <option value="Cubiertos">Cubiertos</option>
+    </select>
+  </label>
+  <label>Cantidad:<input type="number" id="cantidad" min="1" value="1"></label>
+  <button type="submit">Agregar al Pedido</button>
+</form>
+<div id="resumen"><h2>Resumen del Pedido:</h2><ul id="listaPedido"></ul></div>
+<script>
+const pedidoForm = document.getElementById('pedidoForm');
+const listaPedido = document.getElementById('listaPedido');
+let pedido = [];
+
+pedidoForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const nombre = document.getElementById('nombre').value;
+  const fecha = document.getElementById('fecha').value;
+  const producto = document.getElementById('producto').value;
+  const cantidad = document.getElementById('cantidad').value;
+  
+  pedido.push({nombre, fecha, producto, cantidad});
+  actualizarResumen();
+});
+
+function actualizarResumen(){
+  listaPedido.innerHTML = '';
+  pedido.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${item.nombre} - ${item.fecha} - ${item.producto} x ${item.cantidad}`;
+    listaPedido.appendChild(li);
+  });
+} 
+</script>
+</body>
+</html>
