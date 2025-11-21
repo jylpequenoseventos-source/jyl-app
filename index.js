@@ -1,1 +1,1 @@
-console.log('JYL App Ready');
+console.log('JYL App PWA lista');
